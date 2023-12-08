@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/taro-demo.github.io/static/css/main.a89e9229.css",
-    "main.js": "/taro-demo.github.io/static/js/main.66a095ff.js",
+    "main.js": "/taro-demo.github.io/static/js/main.22842a69.js",
     "static/js/787.ce69b3c2.chunk.js": "/taro-demo.github.io/static/js/787.ce69b3c2.chunk.js",
     "static/media/slick.svg": "/taro-demo.github.io/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/taro-demo.github.io/static/media/slick.a4e97f5a2a64f0ab1323.eot",
@@ -9,11 +9,11 @@
     "static/media/slick.woff": "/taro-demo.github.io/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/taro-demo.github.io/index.html",
     "main.a89e9229.css.map": "/taro-demo.github.io/static/css/main.a89e9229.css.map",
-    "main.66a095ff.js.map": "/taro-demo.github.io/static/js/main.66a095ff.js.map",
+    "main.22842a69.js.map": "/taro-demo.github.io/static/js/main.22842a69.js.map",
     "787.ce69b3c2.chunk.js.map": "/taro-demo.github.io/static/js/787.ce69b3c2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a89e9229.css",
-    "static/js/main.66a095ff.js"
+    "static/js/main.22842a69.js"
   ]
 }
