@@ -1,4 +1,5 @@
 import './App.css';
+import GlassButton from './components/Buttons/GlassButton/GlassButton';
 import ImageGrid from './components/ImageSlider/ImageGrid';
 
 function getImageUrl(imageName: string) {
@@ -30,9 +31,14 @@ function App() {
         getImageUrl('Tower'),
     ];
 
+    const handleClick = () => {
+        console.log('Кнопка нажата');
+    };
+
     return (
         <div className='App'>
             <header className='App-header'>
+                <GlassButton text='Нажми меня' onClick={handleClick} />
                 <ImageGrid images={images} />
             </header>
         </div>
