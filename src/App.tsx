@@ -1,12 +1,12 @@
 import './App.css';
-import { determineCurrentPage } from './router/AppRouter';
+import AppRouter from './router/AppRouter';
 
 function App() {
-    const currentPage = determineCurrentPage();
-
     return (
         <div className='App'>
-            <header className='App-header'>{currentPage}</header>
+            <header className='App-header'>
+                <AppRouter />
+            </header>
         </div>
     );
 }
