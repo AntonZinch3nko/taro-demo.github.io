@@ -1,20 +1,16 @@
+import { HashRouter as Router } from 'react-router-dom';
 import './App.css';
-import GalleryPage from './pages/GalleryPage';
+import { RoutesList } from './router/AppRouter';
 
 function App() {
     return (
-        // <BrowserRouter>
-        //     <div className='App'>
-        //         <header className='App-header'>
-        //             <RoutesList />
-        //         </header>
-        //     </div>
-        // </BrowserRouter>
-        <div className='App'>
-            <header className='App-header'>
-                <GalleryPage />
-            </header>
-        </div>
+        <Router>
+            <div className='App'>
+                <header className='App-header'>
+                    <RoutesList />
+                </header>
+            </div>
+        </Router>
     );
 }
 

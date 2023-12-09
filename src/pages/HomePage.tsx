@@ -7,7 +7,7 @@ const HomePage: React.FC = () => {
     return (
         <div>
             {window.location.pathname === '/taro-demo.github.io' && (
-                <Link to='/taro-demo.github.io/gallery'>
+                <Link to='/gallery'>
                     <GlassButton text='Галерея' onClick={() => {}} />
                 </Link>
             )}

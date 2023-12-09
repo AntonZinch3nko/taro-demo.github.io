@@ -1,18 +1,14 @@
 // src/components/AppRouter.tsx
-import React from 'react';
 import {
-    BrowserRouter,
-    Route,
     RouteObject,
-    Routes,
-    useRoutes,
+    useRoutes
 } from 'react-router-dom';
 import GalleryPage from '../pages/GalleryPage';
 import HomePage from '../pages/HomePage';
 
 export const routes = [
     {
-        path: '/taro-demo.github.io',
+        path: '/',
         breadcrumb: 'Главная',
         element: <HomePage />,
         children: [
@@ -24,7 +20,6 @@ export const routes = [
         ],
     },
 ];
-
 export const RoutesList = () => {
     const element = useRoutes(routes as RouteObject[]);
     return <>{element}</>;
