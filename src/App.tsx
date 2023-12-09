@@ -15,13 +15,19 @@ function App() {
         getImageUrl('Magician'),
         getImageUrl('Pristess'),
         getImageUrl('Empress'),
+        getImageUrl('Emperor'),
         getImageUrl('Hierophant'),
         getImageUrl('Lovers'),
         getImageUrl('Chariot'),
         getImageUrl('Strength'),
         getImageUrl('Hermit'),
-
+        getImageUrl('Wheel'),
+        getImageUrl('Justice'),
         getImageUrl('Hunged_man'),
+        getImageUrl('Death'),
+        getImageUrl('Temperance'),
+        getImageUrl('Devil'),
+        getImageUrl('Tower'),
     ];
 
     return (
