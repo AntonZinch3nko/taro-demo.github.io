@@ -1,16 +1,20 @@
-import { BrowserRouter, Outlet } from 'react-router-dom';
 import './App.css';
-import { RoutesList } from './router/AppRouter';
+import GalleryPage from './pages/GalleryPage';
 
 function App() {
     return (
-        <BrowserRouter>
-            <div className='App'>
-                <header className='App-header'>
-                    <RoutesList />
-                </header>
-            </div>
-        </BrowserRouter>
+        // <BrowserRouter>
+        //     <div className='App'>
+        //         <header className='App-header'>
+        //             <RoutesList />
+        //         </header>
+        //     </div>
+        // </BrowserRouter>
+        <div className='App'>
+            <header className='App-header'>
+                <GalleryPage />
+            </header>
+        </div>
     );
 }
 
