@@ -15,10 +15,11 @@ function App() {
         getImageUrl('Magician'),
         getImageUrl('Pristess'),
         getImageUrl('Empress'),
-        getImageUrl('Emperor'),
-
-        getImageUrl('Chariot'),
+        getImageUrl('Hierophant'),
         getImageUrl('Lovers'),
+        getImageUrl('Chariot'),
+        getImageUrl('Strength'),
+
         getImageUrl('Hunged_man'),
     ];
 
