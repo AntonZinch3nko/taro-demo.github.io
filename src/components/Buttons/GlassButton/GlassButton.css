@@ -39,3 +39,11 @@
     background: linear-gradient(to right, transparent, rgba(254, 244, 224, 0.8), transparent);
     left: 100%; /* Конечное положение блика */
   }
+
+  .glass-button:disabled {
+    background: rgba(255, 255, 255, 0.18); /* Темнее на 10% */
+    color: rgba(255, 255, 255, 0.5); /* Цвет текста темнее */
+    cursor: not-allowed; /* Запрещающий курсор */
+    box-shadow: none; /* Убираем тень */
+    pointer-events: none; /* Отключаем взаимодействие с пользователем */
+}
