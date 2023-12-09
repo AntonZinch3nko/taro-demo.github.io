@@ -1,20 +1,25 @@
 import './App.css';
 import ImageGrid from './components/ImageSlider/ImageGrid';
 
+function getImageUrl(imageName: string) {
+    const baseUrl =
+        process.env.NODE_ENV === 'development'
+            ? '/img/deck/'
+            : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/';
+    return `${baseUrl}${imageName}.png`;
+}
+
 function App() {
     const images = [
-        process.env.NODE_ENV === 'development'
-            ? '/img/deck/Chariot.png'
-            : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/Chariot.png',
-        process.env.NODE_ENV === 'development'
-            ? '/img/deck/Fool.png'
-            : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/Fool.png',
-        process.env.NODE_ENV === 'development'
-            ? '/img/deck/Lovers.png'
-            : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/Lovers.png',
-        process.env.NODE_ENV === 'development'
-            ? '/img/deck/Hunged_man.png'
-            : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/Hunged_man.png',
+        getImageUrl('Fool'),
+        getImageUrl('Magician'),
+        getImageUrl('Pristess'),
+        getImageUrl('Empress'),
+        getImageUrl('Emperor'),
+
+        getImageUrl('Chariot'),
+        getImageUrl('Lovers'),
+        getImageUrl('Hunged_man'),
     ];
 
     return (
