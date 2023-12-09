@@ -19,6 +19,7 @@ function App() {
         getImageUrl('Lovers'),
         getImageUrl('Chariot'),
         getImageUrl('Strength'),
+        getImageUrl('Hermit'),
 
         getImageUrl('Hunged_man'),
     ];
