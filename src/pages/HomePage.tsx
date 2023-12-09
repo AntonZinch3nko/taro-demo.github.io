@@ -6,11 +6,9 @@ const HomePage: React.FC = () => {
     console.log("window.location.pathname",window.location.pathname)
     return (
         <div>
-            {window.location.pathname === '/taro-demo.github.io' && (
-                <Link to='/gallery'>
+             <Link to='/gallery'>
                     <GlassButton text='Галерея' onClick={() => {}} />
                 </Link>
-            )}
             <Outlet />
         </div>
     );
