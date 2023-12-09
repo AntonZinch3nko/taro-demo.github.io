@@ -32,6 +32,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://AntonZinch3nko.github.io/taro-demo.github.io",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/react-modal": "^3.16.3",
-    "@types/react-slick": "^0.23.12"
+    "@types/react-slick": "^0.23.12",
+    "gh-pages": "^6.1.0"
   }
 }
