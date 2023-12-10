@@ -56,6 +56,10 @@ const images = [
     getImageUrl('Cups_8'),
     getImageUrl('Cups_9'),
     getImageUrl('Cups_10'),
+    getImageUrl('Cups_page'),
+    getImageUrl('Cups_knight'),
+    getImageUrl('Cups_queen'),
+    getImageUrl('Cups_king'),
 ];
 
 const GalleryPage: React.FC = () => {
