@@ -46,6 +46,16 @@ const images = [
     getImageUrl('Wands_knight'),
     getImageUrl('Wands_queen'),
     getImageUrl('Wands_king'),
+    getImageUrl('Cups_1'),
+    getImageUrl('Cups_2'),
+    getImageUrl('Cups_3'),
+    getImageUrl('Cups_4'),
+    getImageUrl('Cups_5'),
+    getImageUrl('Cups_6'),
+    getImageUrl('Cups_7'),
+    getImageUrl('Cups_8'),
+    getImageUrl('Cups_9'),
+    getImageUrl('Cups_10'),
 ];
 
 const GalleryPage: React.FC = () => {
