@@ -4,7 +4,7 @@ import ImageGrid from '../components/ImageSlider/ImageGrid';
 function getImageUrl(imageName: string) {
     const baseUrl =
         process.env.NODE_ENV === 'development'
-            ? '/img/deck/'
+            ?process.env.PUBLIC_URL +  '/img/deck/'
             : 'https://antonzinch3nko.github.io/taro-demo.github.io/img/deck/';
     return `${baseUrl}${imageName}.png`;
 }
