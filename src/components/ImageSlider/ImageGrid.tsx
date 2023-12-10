@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Slider from 'react-slick';
+import PlaceholderImage from '../Placeholder/PlaceholderImage';
+import { LazyImage } from '../Image/LazyImage';
 
 interface ImageGridProps {
     images: string[]; // массив URL изображений
@@ -25,7 +27,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        initialSlide: currentImage
+        initialSlide: currentImage,
     };
 
     const customStyles = {
@@ -38,30 +40,38 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             transform: 'translate(-50%, -50%)',
             width: '600px', // Ширина модального окна
             height: '800px', // Высота модального окна
-            overflow: 'hidden' // Скрыть скроллбары
+            overflow: 'hidden', // Скрыть скроллбары
         },
         overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.75)' // Полупрозрачный фон вокруг модального окна
-          }
+            backgroundColor: 'rgba(0, 0, 0, 0.75)', // Полупрозрачный фон вокруг модального окна
+        },
     };
 
     return (
         <div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {images.map((img, index) => (
-                    <img
+                    <LazyImage
                         key={index}
-                        src={img}
-                        style={{ 
-                            width: '300px', 
-                            height: '400px', 
-                            margin: '5px', 
-                            cursor: "pointer",
-                            transition: '0.3s' // Плавность анимации
-                          }}
-                          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} // Анимация при наведении
-                          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} // Возврат к исходному состоянию
-                        onClick={() => openModal(index)}
+                        imageProps={{
+                            src: img,
+                            loading: 'lazy',
+                            onMouseOver: (e) =>
+                                (e.currentTarget.style.transform =
+                                    'scale(1.05)'),
+                            onMouseOut: (e) =>
+                                (e.currentTarget.style.transform = 'scale(1)'),
+                            onClick: (e) => openModal(index),
+                            style: {
+                                width: '300px',
+                                height: '400px',
+                                margin: '5px',
+                                cursor: 'pointer',
+                                transition: '0.3s',
+                                overflow: 'hidden',
+                                position: 'relative',
+                            },
+                        }}
                     />
                 ))}
             </div>
@@ -73,7 +83,11 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                 <Slider {...settings}>
                     {images.map((img, index) => (
                         <div key={index}>
-                            <img src={img} style={{ width: '100%' }} />
+                            <img
+                                loading='lazy'
+                                src={img}
+                                style={{ width: '100%' }}
+                            />
                         </div>
                     ))}
                 </Slider>

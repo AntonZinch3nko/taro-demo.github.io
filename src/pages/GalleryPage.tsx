@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageGrid from '../components/ImageSlider/ImageGrid';
+import SmokeCanvasAnimation from '../components/Animations/SmokeCanvasAnimation';
 
 function getImageUrl(imageName: string) {
     const baseUrl =
@@ -60,6 +61,32 @@ const images = [
     getImageUrl('Cups_knight'),
     getImageUrl('Cups_queen'),
     getImageUrl('Cups_king'),
+    getImageUrl('Sword_1'),
+    getImageUrl('Sword_2'),
+    getImageUrl('Sword_3'),
+    getImageUrl('Sword_4'),
+    getImageUrl('Sword_5'),
+    getImageUrl('Sword_6'),
+    getImageUrl('Sword_7'),
+    getImageUrl('Sword_8'),
+    getImageUrl('Sword_9'),
+    getImageUrl('Sword_10'),
+    getImageUrl('Sword_page'),
+    getImageUrl('Sword_knight'),
+    getImageUrl('Sword_queen'),
+    getImageUrl('Sword_king'),
+    getImageUrl('Penta_1'),
+    getImageUrl('Penta_2'),
+    getImageUrl('Penta_3'),
+    getImageUrl('Penta_4'),
+    getImageUrl('Penta_5'),
+    getImageUrl('Penta_6'),
+    getImageUrl('Penta_7'),
+    getImageUrl('Penta_8'),
+    getImageUrl('Penta_9'),
+    getImageUrl('Penta_10'),
+    getImageUrl('Penta_page'),
+    getImageUrl('Penta_knight'),
 ];
 
 const GalleryPage: React.FC = () => {
