@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import GlassButton from '../components/Buttons/GlassButton/GlassButton';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu } from '../components/Menu/Menu';
@@ -7,7 +7,7 @@ const HomePage: React.FC = () => {
     const [shouldRenderButton, setShouldRenderButton] = useState(true);
     const location = useLocation();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setShouldRenderButton(location.pathname === "/");
     }, [location]);
 
