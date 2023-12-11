@@ -9,22 +9,22 @@ import { Box, Image } from '@chakra-ui/react';
 interface FlipImageProps {
     imageProps: React.ImgHTMLAttributes<HTMLImageElement>;
     backContent: ReactNode;
+    isFlipped: boolean;
 }
 
-export const FlipImage: FC<FlipImageProps> = ({ imageProps, backContent }) => {
+export const FlipImage: FC<FlipImageProps> = ({
+    imageProps,
+    backContent,
+    isFlipped,
+}) => {
     const [imageIsLoading, setImageIsLoading] = useState(false);
-    const [isFlipped, setIsFlipped] = useState(false);
 
     const handleImageLoad = () => {
         setImageIsLoading(true);
     };
 
     return (
-        <Box
-            minW={'300px'}
-            position='relative'
-            onMouseEnter={() => setIsFlipped(true)}
-            onMouseLeave={() => setIsFlipped(false)}>
+        <Box minW={'300px'} position='relative'>
             <Box
                 position='relative'
                 transform={isFlipped ? 'rotateY(180deg)' : 'none'}
