@@ -5,11 +5,14 @@ import { FlipImage } from '../Image/FlipImage';
 import {
     Box,
     Flex,
+    Heading,
     Modal,
     ModalCloseButton,
     ModalContent,
     ModalOverlay,
+    Text,
 } from '@chakra-ui/react';
+import { imagesData } from '../../data/CardInfo';
 
 interface ImageGridProps {
     images: string[]; // массив URL изображений
@@ -27,6 +30,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
 
     const closeModal = () => {
         setModalIsOpen(false);
+        setIsFlipped(false);
     };
 
     return (
@@ -103,7 +107,26 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                                             borderImage:
                                                 'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, #3A3A3A 50%, rgba(0, 0, 0, 0.5) 100%) 1 / 1 / 0 stretch',
                                         }}>
-                                        TEXT
+                                        <Flex wrap={"wrap"} justify={"center"}>
+                                            <Heading
+                                                as='h1'
+                                                size='xl'
+                                                textAlign={"center"}
+                                                mb={4}
+                                                color={'black'}>
+                                                {imagesData[currentImage].title}
+                                            </Heading>
+                                            <Text
+                                                fontSize='lg'
+                                                maxWidth='600px'
+                                                textAlign='center'
+                                                color={'black'}>
+                                                {
+                                                    imagesData[currentImage]
+                                                        .description
+                                                }
+                                            </Text>
+                                        </Flex>
                                     </Box>
                                 </Flex>
                             }
