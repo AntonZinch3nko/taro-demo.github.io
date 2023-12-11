@@ -20,7 +20,7 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
         <img {...imageProps} />
     ) : (
         <div style={{ position: 'relative' }}>
-            <PlaceholderImage />
+            <PlaceholderImage width='99px' height='132px'/>
             <img
                 {...imageProps}
                 style={{
@@ -29,6 +29,7 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
                     left: '0',
                     width: '1px',
                     height: '1px',
+                    opacity: 0,
                     overflow: 'hidden',
                 }}
                 loading='lazy'

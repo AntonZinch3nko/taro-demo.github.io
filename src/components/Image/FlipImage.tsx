@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { Box, Image } from '@chakra-ui/react';
+import PlaceholderImage from '../Placeholder/PlaceholderImage';
 
 /**
  * FlipImage представляет собой компонент, который является ...
@@ -40,19 +41,22 @@ export const FlipImage: FC<FlipImageProps> = ({
                     {imageIsLoading ? (
                         <Image {...imageProps} />
                     ) : (
-                        <Box position='relative'>
-                            <Image
+                        <div style={{ position: 'relative' }}>
+                            <PlaceholderImage width='300px' height='400px' />
+                            <img
                                 {...imageProps}
-                                position='absolute'
-                                top='0'
-                                left='0'
-                                width='1px'
-                                height='1px'
-                                overflow='hidden'
+                                style={{
+                                    position: 'absolute',
+                                    top: '0',
+                                    left: '0',
+                                    width: '1px',
+                                    height: '1px',
+                                    overflow: 'hidden',
+                                }}
                                 loading='lazy'
                                 onLoad={handleImageLoad}
                             />
-                        </Box>
+                        </div>
                     )}
                 </Box>
                 <Box

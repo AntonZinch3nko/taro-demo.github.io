@@ -15,13 +15,16 @@ import {
 import { imagesData } from '../../data/CardInfo';
 
 interface ImageGridProps {
-    images: string[]; // массив URL изображений
+    getImages: (isThumb?: boolean) => string[]; // массив URL изображений
 }
 
-const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
+const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
+
+    const images = getImages(false);
+    const thumbImages = getImages(true);
 
     const openModal = (index: number) => {
         setCurrentImage(index);
@@ -36,7 +39,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
     return (
         <div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {images.map((img, index) => (
+                {thumbImages.map((img, index) => (
                     <LazyImage
                         key={index}
                         imageProps={{
@@ -49,8 +52,8 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                                 (e.currentTarget.style.transform = 'scale(1)'),
                             onClick: (e) => openModal(index),
                             style: {
-                                width: '300px',
-                                height: '400px',
+                                width: '99px',
+                                height: '132px',
                                 margin: '5px',
                                 cursor: 'pointer',
                                 transition: '0.3s',
@@ -107,11 +110,11 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                                             borderImage:
                                                 'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, #3A3A3A 50%, rgba(0, 0, 0, 0.5) 100%) 1 / 1 / 0 stretch',
                                         }}>
-                                        <Flex wrap={"wrap"} justify={"center"}>
+                                        <Flex wrap={'wrap'} justify={'center'}>
                                             <Heading
                                                 as='h1'
                                                 size='xl'
-                                                textAlign={"center"}
+                                                textAlign={'center'}
                                                 mb={4}
                                                 color={'black'}>
                                                 {imagesData[currentImage].title}
