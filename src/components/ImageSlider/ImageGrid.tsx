@@ -52,8 +52,8 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                                 (e.currentTarget.style.transform = 'scale(1)'),
                             onClick: (e) => openModal(index),
                             style: {
-                                width: '99px',
-                                height: '132px',
+                                width: '150px',
+                                height: '200px',
                                 margin: '5px',
                                 cursor: 'pointer',
                                 transition: '0.3s',
