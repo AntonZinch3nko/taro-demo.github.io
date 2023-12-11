@@ -47,7 +47,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                             loading: 'lazy',
                             onMouseOver: (e) =>
                                 (e.currentTarget.style.transform =
-                                    'scale(1.05)'),
+                                    'scale(1.1)'),
                             onMouseOut: (e) =>
                                 (e.currentTarget.style.transform = 'scale(1)'),
                             onClick: (e) => openModal(index),
