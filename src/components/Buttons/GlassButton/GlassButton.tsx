@@ -1,36 +1,41 @@
-import React, { ButtonHTMLAttributes, useState } from 'react';
-import './GlassButton.css'; 
+import {
+    Button,
+    ButtonProps,
+    useColorModeValue,
+    useTheme,
+} from '@chakra-ui/react';
+import { FC } from 'react';
 
 interface GlassButtonProps {
-  text: string;
-  onClick?: () => void;
-  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+    text: string;
+    onClick?: () => void;
+    buttonProps?: ButtonProps;
 }
 
-const GlassButton: React.FC<GlassButtonProps> = ({ text, buttonProps, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
+const GlassButton: FC<GlassButtonProps> = ({
+    text,
+    onClick,
+    buttonProps,
+    ...props
+}) => {
+    const theme = useTheme();
 
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-  const handleClick = () => {
-    setIsClicked(true);
-    onClick && onClick();
-    setTimeout(() => setIsClicked(false), 300); 
-  };
-
-  return (
-    <button
-      style={{minWidth: "240px"}}
-      className={`glass-button ${isHovered ? 'hovered' : ''} ${isClicked ? 'clicked' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
-      {...buttonProps}
-    >
-      {text}
-    </button>
-  );
+    return (
+        <Button
+            variant={'main'}
+            onClick={onClick}
+            borderRadius='6px'
+            padding='10px 20px'
+            fontSize='16px'
+            backdropFilter='blur(10px)'
+            boxShadow={theme.shadows.light}
+            transition='transform 0.3s ease, box-shadow 0.3s ease'
+            position='relative'
+            overflow='hidden'
+            {...buttonProps}>
+            {text}
+        </Button>
+    );
 };
 
 export default GlassButton;

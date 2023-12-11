@@ -1,42 +1,100 @@
-import { ChakraProvider, ColorModeProvider, CSSReset } from '@chakra-ui/react';
+import {
+    ChakraProvider,
+    ColorModeProvider,
+    ColorModeScript,
+    ComponentStyleConfig,
+    CSSReset,
+    defineStyleConfig,
+    StyleFunctionProps,
+} from '@chakra-ui/react';
 import { extendTheme } from '@chakra-ui/react';
+import DesignSystemDark from './DesignSystem_dark';
+import DesignSystemLight from './DesignSystem_light';
+
+const Button: ComponentStyleConfig = {
+    baseStyle: (props: StyleFunctionProps) => ({
+        backgroundColor:
+            props.colorMode === 'dark'
+                ? DesignSystemDark.colors.buttonBackground
+                : DesignSystemLight.colors.buttonBackground,
+        color:
+            props.colorMode === 'dark'
+                ? DesignSystemDark.colors.buttonText
+                : DesignSystemLight.colors.buttonText,
+
+        _hover: {
+            backgroundColor:
+                props.colorMode === 'dark'
+                    ? DesignSystemDark.colors.buttonHover
+                    : DesignSystemLight.colors.buttonHover,
+        },
+        _active: {
+            backgroundColor:
+                props.colorMode === 'dark'
+                    ? DesignSystemDark.colors.buttonActive
+                    : DesignSystemLight.colors.buttonActive,
+        },
+        _focus: {
+            boxShadow:
+                props.colorMode === 'dark'
+                    ? DesignSystemDark.shadows.middle
+                    : DesignSystemLight.shadows.middle,
+        },
+    }),
+};
+const Switch: ComponentStyleConfig = {
+    baseStyle: (props: StyleFunctionProps) => ({
+        track: {
+            _checked: {
+                bg:
+                    props.colorMode === 'dark'
+                        ? DesignSystemDark.colors.buttonBackground
+                        : DesignSystemLight.colors.buttonBackground,
+            },
+        },
+    }),
+};
 
 const customTheme = extendTheme({
-  styles: {
-    global: {
-      // 'body': {
-      //   backgroundColor: "red", // ваше обычное глобальное стилизование для body
-      // },
-      '::-webkit-scrollbar': {
-        width: '4px',
-      },
-      '::-webkit-scrollbar-track': {
-        width: '6px',
-      },
-      '::-webkit-scrollbar-thumb': {
-        background: 'gray',
-        borderRadius: '24px',
-      },
+    components: {
+        Button,
+        Switch,
     },
-  },
-  config: {
-    initialColorMode: 'dark',
-    useSystemColorMode: false,
-  },
-  colors: {
-    brand: {
-      50: '#f5f5f5',
-      900: '#1a202c',
+    styles: {
+        global: {
+            '::-webkit-scrollbar': {
+                width: '4px',
+            },
+            '::-webkit-scrollbar-track': {
+                width: '6px',
+            },
+            '::-webkit-scrollbar-thumb': {
+                background: 'gray',
+                borderRadius: '24px',
+            },
+        },
     },
-  },
-  // ... другие компоненты
+    colors: {
+        ...DesignSystemDark.colors,
+        ...DesignSystemLight.colors,
+    },
+    shadows: {
+        ...DesignSystemDark.shadows,
+        ...DesignSystemLight.shadows,
+    },
+    config: {
+        initialColorMode: 'dark',
+        useSystemColorMode: false,
+    },
 });
 
 export const Chakra = ({ children }: { children: React.ReactNode }) => (
     <ChakraProvider theme={customTheme}>
-        <ColorModeProvider>
-            <CSSReset />
-            {children}
-        </ColorModeProvider>
+        <CSSReset />
+        <ColorModeScript
+            initialColorMode={customTheme.config.initialColorMode}
+        />
+
+        {children}
     </ChakraProvider>
 );

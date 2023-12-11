@@ -24,3 +24,8 @@ export const RoutesList = () => {
     const element = useRoutes(routes as RouteObject[]);
     return <>{element}</>;
 };
+
+export enum SectionTitles {
+    Home = "Главная",
+    Gallery = "Галерея",
+}

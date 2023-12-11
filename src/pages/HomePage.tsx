@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
     const location = useLocation();
 
     useLayoutEffect(() => {
-        setShouldRenderButton(location.pathname === "/");
+        setShouldRenderButton(location.pathname === '/');
     }, [location]);
 
     return (
@@ -34,13 +34,16 @@ const HomePage: React.FC = () => {
                                 }}>
                                 <GlassButton
                                     buttonProps={{
-                                        disabled: true,
+                                        isDisabled: true,
+                                        w: '100%',
                                     }}
                                     text='Получить расклад'
                                 />
                             </Link>
                             <Link to='/gallery' style={{ width: ' 100%' }}>
                                 <GlassButton
+                                    
+                                    buttonProps={{ w: '100%' }}
                                     text='Галерея'
                                 />
                             </Link>
