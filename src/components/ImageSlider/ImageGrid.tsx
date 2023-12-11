@@ -38,7 +38,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
 
     return (
         <div>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', justifyContent: "space-between", flexWrap: 'wrap' }}>
                 {thumbImages.map((img, index) => (
                     <LazyImage
                         key={index}
