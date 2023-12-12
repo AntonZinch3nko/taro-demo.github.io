@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/taro-demo.github.io/static/css/main.c685bac6.css",
-    "main.js": "/taro-demo.github.io/static/js/main.66865347.js",
+    "main.js": "/taro-demo.github.io/static/js/main.42e43a70.js",
     "index.html": "/taro-demo.github.io/index.html",
     "main.c685bac6.css.map": "/taro-demo.github.io/static/css/main.c685bac6.css.map",
-    "main.66865347.js.map": "/taro-demo.github.io/static/js/main.66865347.js.map"
+    "main.42e43a70.js.map": "/taro-demo.github.io/static/js/main.42e43a70.js.map"
   },
   "entrypoints": [
     "static/css/main.c685bac6.css",
-    "static/js/main.66865347.js"
+    "static/js/main.42e43a70.js"
   ]
 }
