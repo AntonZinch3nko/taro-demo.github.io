@@ -11,6 +11,9 @@ const DesignSystemDark = {
         link: '#483D8B',
         linkHover: '#6A5ACD',
         border: '#483D8B',
+        effectColor: 'rgba(72, 61, 139, 0.7)',
+        cardBackground:
+            'radial-gradient(circle, rgba(72, 61, 139, 0.7) 0%, rgba(46, 139, 87, 0) 99%)',
         borderGradient:
             'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, #483D8B 50%, rgba(0, 0, 0, 0.5) 100%)',
     },

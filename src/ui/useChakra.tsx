@@ -13,10 +13,14 @@ export const useChakra = () => {
         DesignSystemDark.colors.background
     );
 
-
     const borderHeaderColor = useColorModeValue(
         DesignSystemLight.colors.border,
         DesignSystemDark.colors.border
+    );
+    const effectColor = DesignSystemDark.colors.border;
+    const cardBackground = useColorModeValue(
+        DesignSystemLight.colors.cardBackground,
+        DesignSystemDark.colors.cardBackground
     );
 
     const buttonShadow = useColorModeValue(
@@ -29,5 +33,13 @@ export const useChakra = () => {
         DesignSystemDark.colors.background
     );
 
-    return { borderMenuImage, bgHeaderColor, borderHeaderColor, buttonShadow, bgColor };
+    return {
+        borderMenuImage,
+        bgHeaderColor,
+        borderHeaderColor,
+        buttonShadow,
+        bgColor,
+        effectColor,
+        cardBackground,
+    };
 };

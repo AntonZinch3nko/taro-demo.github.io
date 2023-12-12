@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import { RoutesList } from './router/AppRouter';
 import { useChakra } from './ui/useChakra';
 import { HEADER_HEIGHT } from './ui/DesignSystem_common';
+import "./App.css";
 
 function App() {
     const { bgColor } = useChakra();

@@ -334,3 +334,29 @@ export const imagesData: ImagesData = [
         description: 'Успех, богатство, деловое чутье, лидерство в бизнесе.',
     },
 ];
+
+export enum TarotSpreadEnum {
+    Foundation,
+    ActiveForce,
+    ThoughtsPlansHopes,
+    SubconsciousFears,
+    MotivationsAndPastEvents,
+    NearFuture,
+    BehaviorStyle,
+    EnvironmentalInfluence,
+    UnexpectedInfluences,
+    Outcome
+}
+
+export const tarotSpreadDescriptions = [
+    "база, основа возникшей проблемы", // Foundation
+    "сила, проводящая активные изменения", // ActiveForce
+    "мысли, планы, надежды", // ThoughtsPlansHopes
+    "чувства, подспудные опасения", // SubconsciousFears
+    "мотивации действий и предшествующие события", // MotivationsAndPastEvents
+    "ближайшее будущее", // NearFuture
+    "стиль поведения спрашивающего, его самоощущение, его отношение к гаданию", // BehaviorStyle
+    "влияние окружения", // EnvironmentalInfluence
+    "неожиданные влияния, возможные проблемы", // UnexpectedInfluences
+    "итог, будущее, отдалённая перспектива" // Outcome
+];
