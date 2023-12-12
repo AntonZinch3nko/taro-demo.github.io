@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/taro-demo.github.io/static/js/main.53a2dfb2.js",
+    "main.js": "/taro-demo.github.io/static/js/main.e85777ae.js",
     "index.html": "/taro-demo.github.io/index.html",
-    "main.53a2dfb2.js.map": "/taro-demo.github.io/static/js/main.53a2dfb2.js.map"
+    "main.e85777ae.js.map": "/taro-demo.github.io/static/js/main.e85777ae.js.map"
   },
   "entrypoints": [
-    "static/js/main.53a2dfb2.js"
+    "static/js/main.e85777ae.js"
   ]
 }
