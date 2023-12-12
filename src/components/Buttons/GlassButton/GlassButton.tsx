@@ -1,8 +1,7 @@
 import {
     Button,
     ButtonProps,
-    useColorModeValue,
-    useTheme,
+    useTheme
 } from '@chakra-ui/react';
 import { FC } from 'react';
 
@@ -16,7 +15,6 @@ const GlassButton: FC<GlassButtonProps> = ({
     text,
     onClick,
     buttonProps,
-    ...props
 }) => {
     const theme = useTheme();
 
@@ -28,7 +26,7 @@ const GlassButton: FC<GlassButtonProps> = ({
             padding='10px 20px'
             fontSize='16px'
             backdropFilter='blur(10px)'
-            boxShadow={theme.shadows.light}
+            boxShadow={theme?.shadows?.light}
             transition='transform 0.3s ease, box-shadow 0.3s ease'
             position='relative'
             overflow='hidden'

@@ -1,0 +1,51 @@
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import ImageGrid from './ImageGrid';
+
+// Мокаем внешние компоненты и хуки
+jest.mock('../Image/LazyImage', () => (props: any) => (
+  <div data-testid="lazy-image" {...props.imageProps} />
+));
+jest.mock('../Image/FlipImage', () => (props: any) => (
+  <div data-testid="flip-image" {...props.imageProps} />
+));
+
+describe('ImageGrid', () => {
+//   const mockImages = ['image1.jpg', 'image2.jpg'];
+
+//   it('renders thumbnails', () => {
+//     render(<ImageGrid getImages={() => mockImages} />);
+//     const thumbnails = screen.getAllByTestId('lazy-image');
+//     expect(thumbnails.length).toBe(mockImages.length);
+//   });
+
+//   it('opens modal on thumbnail click', () => {
+//     render(<ImageGrid getImages={() => mockImages} />);
+//     fireEvent.click(screen.getAllByTestId('lazy-image')[0]);
+//     expect(screen.getByRole('dialog')).toBeInTheDocument();
+//   });
+
+//   it('flips image on button click in modal', () => {
+//     render(<ImageGrid getImages={() => mockImages} />);
+//     fireEvent.click(screen.getAllByTestId('lazy-image')[0]);
+//     fireEvent.click(screen.getByTestId('flip-button')); // Предполагаем, что у кнопки есть data-testid="flip-button"
+//     expect(screen.getByTestId('flip-image')).toHaveAttribute('isFlipped', 'true');
+//   });
+
+//   it('closes modal', () => {
+//     render(<ImageGrid getImages={() => mockImages} />);
+//     fireEvent.click(screen.getAllByTestId('lazy-image')[0]);
+//     fireEvent.click(screen.getByRole('button', { name: /close/i }));
+//     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+//   });
+});
+
+
+// В этом примере:
+
+// Первый тест проверяет, что миниатюры изображений отображаются.
+// Второй тест проверяет, что модальное окно открывается при клике на миниатюру.
+// Третий тест проверяет, что изображение переворачивается при клике на соответствующую кнопку в модальном окне.
+// Четвертый тест проверяет, что модальное окно закрывается.
+// Обратите внимание, что вам может потребоваться адаптировать эти тесты в соответствии с реальной реализацией компонентов и логикой вашего приложения.

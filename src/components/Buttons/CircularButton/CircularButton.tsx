@@ -1,31 +1,34 @@
-import React, { FC } from 'react';
-import { Box, Button, ButtonProps } from '@chakra-ui/react';
-import { RepeatIcon } from '@chakra-ui/icons';
+import { Box, BoxProps, Button, ButtonProps } from '@chakra-ui/react';
+import { FC, ReactNode } from 'react';
+import { useChakra } from '../../../ui/useChakra';
 
-interface CircularButtonWithIcon extends ButtonProps {}
+interface CircularButtonWithIcon extends ButtonProps {
+    icon: ReactNode;
+    boxProps?: BoxProps;
+    buttonProps?: ButtonProps;
+}
 
-const CircularButtonWithIcon: FC<CircularButtonWithIcon> = ({ ...props }) => {
+const CircularButtonWithIcon: FC<CircularButtonWithIcon> = ({
+    icon,
+    boxProps,
+    buttonProps,
+    ...props
+}) => {
+    const { buttonShadow } = useChakra();
+    
     return (
-        <Box
-            position={'absolute'}
-            top={'90%'}
-            left={'calc(50% - 20px)'}
-            zIndex={2}>
+        <Box {...boxProps}>
             <Button
-                {...props}
+                {...buttonProps}
                 size='sm'
                 variant='ghost'
-                borderRadius='50%' // Делаем кнопку круглой
-                width='40px' // Задаем ширину и высоту, чтобы сделать кнопку круглой
-                height='40px'
+                borderRadius='50%'
                 display='flex'
-                backgroundColor={'black'}
                 justifyContent='center'
                 alignItems='center'
-                colorScheme='black' // Цвет кнопки
-                boxShadow='0 0 10px rgba(255, 255, 255, 0.5)' // Добавляем светлую тень
-            >
-                <RepeatIcon />
+                boxShadow={buttonShadow}
+                {...props}>
+                {icon}
             </Button>
         </Box>
     );

@@ -1,25 +1,13 @@
 import React, { useState } from 'react';
+import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react';
 import { animated, useSpring } from 'react-spring';
+import { ColorHelper } from '../../helpers/ColorHelper';
 
-const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};
-
-//ToDo норм тип
 interface PlaceholderImageProps {
-    height: string;
-    width: string;
+    boxProps: BoxProps;
 }
 
-const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
-    height,
-    width,
-}) => {
+const PlaceholderImage: React.FC<PlaceholderImageProps> = ({ boxProps }) => {
     const [rotation] = useSpring(() => ({
         rotation: 360,
         from: { rotation: 0 },
@@ -28,33 +16,29 @@ const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
         loop: true,
     }));
 
-    const [borderColor, setBorderColor] = useState(getRandomColor());
+    const [borderColor, setBorderColor] = useState(ColorHelper.getRandomColor());
 
     const handleColorChange = () => {
-        setBorderColor(getRandomColor());
+        setBorderColor(ColorHelper.getRandomColor());
     };
 
     return (
-        <div
-            style={{
-                margin: '5px',
-                borderRadius: '20px',
-                width: width,
-                height: height,
-                background: 'rgba(113, 113, 113, 0.2)', // Монотонный фон
-                boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
-                position: 'relative', // Необходимо для абсолютно позиционированного блика
-            }}>
-            <div
-                style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-                onClick={handleColorChange}>
+        <Box
+            {...boxProps}
+            itemID={"placeholder-image"}
+            margin='5px'
+            borderRadius='20px'
+            bg={useColorModeValue('gray.200', 'gray.700')}
+            boxShadow='0 0 20px rgba(0, 0, 0, 0.5)'
+            position='relative'
+            onClick={handleColorChange}>
+            <Box
+                position='absolute'
+                width='100%'
+                height='100%'
+                display='flex'
+                justifyContent='center'
+                alignItems='center'>
                 <animated.div
                     style={{
                         width: '100px',
@@ -65,12 +49,12 @@ const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
                         borderLeft: '8px solid transparent',
                         borderRight: '8px solid transparent',
                         borderRadius: '50%',
-                        transform: rotation.rotation.interpolate(
+                        transform: rotation.rotation.to(
                             (r) => `rotate(${r}deg)`
                         ),
                     }}></animated.div>
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

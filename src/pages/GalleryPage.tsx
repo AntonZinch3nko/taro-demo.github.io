@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageGrid from '../components/ImageSlider/ImageGrid';
+import { Box } from '@chakra-ui/react';
 
 function getImageUrl(imageName: string, isThumb?: boolean) {
     const baseUrl =
@@ -9,9 +10,7 @@ function getImageUrl(imageName: string, isThumb?: boolean) {
     return `${baseUrl}${imageName}${isThumb ? '@0,33x' : ''}.png`;
 }
 
-
 const getImages = (isThumb?: boolean) => {
-
     const images = [
         getImageUrl('Fool', isThumb),
         getImageUrl('Magician', isThumb),
@@ -93,15 +92,14 @@ const getImages = (isThumb?: boolean) => {
         getImageUrl('Penta_king', isThumb),
     ];
 
-    return images
+    return images;
 };
-
 
 const GalleryPage: React.FC = () => {
     return (
-        <div>
+        <Box p={3} w='100%'>
             <ImageGrid getImages={getImages} />
-        </div>
+        </Box>
     );
 };
 

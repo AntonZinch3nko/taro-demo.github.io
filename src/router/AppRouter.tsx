@@ -1,21 +1,29 @@
-// src/components/AppRouter.tsx
-import {
-    RouteObject,
-    useRoutes
-} from 'react-router-dom';
+import { RouteObject, useRoutes } from 'react-router-dom';
+import BaseLayout from '../pages/BaseLayout';
 import GalleryPage from '../pages/GalleryPage';
-import HomePage from '../pages/HomePage';
+import { TarotSpread } from '../pages/TarotSpread';
+
+export enum SectionTitles {
+    Home = 'Главная',
+    Gallery = 'Галерея',
+    TarotSpread = 'Расклад таро',
+}
 
 export const routes = [
     {
         path: '/',
-        breadcrumb: 'Главная',
-        element: <HomePage />,
+        breadcrumb: SectionTitles.Home,
+        element: <BaseLayout />,
         children: [
             {
-                path: 'gallery', 
+                path: 'gallery',
                 element: <GalleryPage />,
-                breadcrumb: 'Галерея',
+                breadcrumb: SectionTitles.Gallery,
+            },
+            {
+                path: 'tarotSpread',
+                element: <TarotSpread />,
+                breadcrumb: SectionTitles.TarotSpread,
             },
         ],
     },
@@ -24,8 +32,3 @@ export const RoutesList = () => {
     const element = useRoutes(routes as RouteObject[]);
     return <>{element}</>;
 };
-
-export enum SectionTitles {
-    Home = "Главная",
-    Gallery = "Галерея",
-}

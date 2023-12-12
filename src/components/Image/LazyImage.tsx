@@ -20,7 +20,7 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
         <img {...imageProps} />
     ) : (
         <div style={{ position: 'relative' }}>
-            <PlaceholderImage width='150px' height='200px'/>
+            <PlaceholderImage boxProps={{ w: '150px', h: '200px' }} />
             <img
                 {...imageProps}
                 style={{

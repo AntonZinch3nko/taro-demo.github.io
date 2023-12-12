@@ -13,6 +13,8 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { imagesData } from '../../data/CardInfo';
+import { RepeatIcon } from '@chakra-ui/icons';
+import DesignSystemLight from '../../ui/DesignSystem_light';
 
 interface ImageGridProps {
     getImages: (isThumb?: boolean) => string[]; // массив URL изображений
@@ -38,7 +40,12 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: "space-between", flexWrap: 'wrap' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                }}>
                 {thumbImages.map((img, index) => (
                     <LazyImage
                         key={index}
@@ -73,6 +80,17 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                     />
                     <Flex h='400px' justifyContent={'center'}>
                         <CircularButton
+                            buttonProps={{
+                                width: '40px',
+                                height: '40px',
+                            }}
+                            boxProps={{
+                                zIndex: 2,
+                                left: 'calc(50% - 20px)',
+                                top: '90%',
+                                position: 'absolute',
+                            }}
+                            icon={<RepeatIcon />}
                             onClick={() => {
                                 setIsFlipped((prev) => !prev);
                             }}
@@ -80,6 +98,9 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                         <FlipImage
                             isFlipped={isFlipped}
                             imageProps={{
+                                onClick: () => {
+                                    setIsFlipped((prev) => !prev);
+                                },
                                 src: `${images[currentImage]}`,
                                 loading: 'lazy',
                                 style: {
@@ -94,7 +115,9 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                             }}
                             backContent={
                                 <Flex
-                                    backgroundColor={'#FEF4E0'}
+                                    backgroundColor={
+                                        DesignSystemLight.colors.primary
+                                    }
                                     w='300px'
                                     h='400px'
                                     m='5px'
@@ -102,9 +125,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                                     borderRadius={'20px'}>
                                     <Box
                                         border={'4px solid black'}
-                                        // borderRadius={'20px'}
                                         padding={'20px'}
-                                        color={'#110016'}
                                         w='100%'
                                         sx={{
                                             borderImage:
@@ -116,14 +137,20 @@ const ImageGrid: React.FC<ImageGridProps> = ({ getImages }) => {
                                                 size='xl'
                                                 textAlign={'center'}
                                                 mb={4}
-                                                color={'black'}>
+                                                color={
+                                                    DesignSystemLight.colors
+                                                        .text
+                                                }>
                                                 {imagesData[currentImage].title}
                                             </Heading>
                                             <Text
                                                 fontSize='lg'
                                                 maxWidth='600px'
                                                 textAlign='center'
-                                                color={'black'}>
+                                                color={
+                                                    DesignSystemLight.colors
+                                                        .secondaryText
+                                                }>
                                                 {
                                                     imagesData[currentImage]
                                                         .description

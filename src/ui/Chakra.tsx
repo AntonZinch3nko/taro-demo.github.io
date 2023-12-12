@@ -1,10 +1,8 @@
 import {
     ChakraProvider,
-    ColorModeProvider,
     ColorModeScript,
     ComponentStyleConfig,
     CSSReset,
-    defineStyleConfig,
     StyleFunctionProps,
 } from '@chakra-ui/react';
 import { extendTheme } from '@chakra-ui/react';
@@ -13,6 +11,7 @@ import DesignSystemLight from './DesignSystem_light';
 
 const Button: ComponentStyleConfig = {
     baseStyle: (props: StyleFunctionProps) => ({
+
         backgroundColor:
             props.colorMode === 'dark'
                 ? DesignSystemDark.colors.buttonBackground
@@ -56,6 +55,10 @@ const Switch: ComponentStyleConfig = {
 };
 
 const customTheme = extendTheme({
+    fonts: {
+        heading: 'Roboto, sans-serif', 
+        body: 'Roboto, sans-serif', 
+    },
     components: {
         Button,
         Switch,
@@ -94,7 +97,6 @@ export const Chakra = ({ children }: { children: React.ReactNode }) => (
         <ColorModeScript
             initialColorMode={customTheme.config.initialColorMode}
         />
-
         {children}
     </ChakraProvider>
 );

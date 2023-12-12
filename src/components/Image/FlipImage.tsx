@@ -30,19 +30,21 @@ export const FlipImage: FC<FlipImageProps> = ({
                 position='relative'
                 transform={isFlipped ? 'rotateY(180deg)' : 'none'}
                 transition='transform 0.6s'
-                sx={{ transformStyle: 'preserve-3d' }} // Using sx prop for transformStyle
+                sx={{ transformStyle: 'preserve-3d' }}
             >
                 <Box
                     position='absolute'
                     width='100%'
                     height='100%'
-                    sx={{ backfaceVisibility: 'hidden' }} // Using sx prop for backfaceVisibility
+                    sx={{ backfaceVisibility: 'hidden' }}
                 >
                     {imageIsLoading ? (
                         <Image {...imageProps} />
                     ) : (
                         <div style={{ position: 'relative' }}>
-                            <PlaceholderImage width='300px' height='400px' />
+                            <PlaceholderImage
+                                boxProps={{ w: '150px', h: '200px' }}
+                            />
                             <img
                                 {...imageProps}
                                 style={{
@@ -64,7 +66,7 @@ export const FlipImage: FC<FlipImageProps> = ({
                     width='100%'
                     height='100%'
                     transform='rotateY(180deg)'
-                    sx={{ backfaceVisibility: 'hidden' }} // Using sx prop here as well
+                    sx={{ backfaceVisibility: 'hidden' }}
                 >
                     {backContent}
                 </Box>

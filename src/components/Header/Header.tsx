@@ -3,26 +3,16 @@ import {
     Box,
     Flex,
     Heading,
-    IconButton,
     Switch,
-    Text,
-    useColorMode,
-    useColorModeValue,
+    useColorMode
 } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getSectionTitle } from '../../helpers/typeGuardians';
-import DesignSystemLight from '../../ui/DesignSystem_light';
-import DesignSystemDark from '../../ui/DesignSystem_dark';
+import { useChakra } from '../../ui/useChakra';
+import CircularButton from '../Buttons/CircularButton/CircularButton';
 
 const Header = () => {
-    const bgColor = useColorModeValue(
-        DesignSystemLight.colors.background,
-        DesignSystemDark.colors.background
-    );
-    const borderColor = useColorModeValue(
-        DesignSystemLight.colors.border,
-        DesignSystemDark.colors.border
-    );
+    const { bgHeaderColor, borderHeaderColor } = useChakra();
 
     const { colorMode, toggleColorMode } = useColorMode();
     const location = useLocation();
@@ -34,7 +24,7 @@ const Header = () => {
     return (
         <Flex
             zIndex={2}
-            minH={"68px"}
+            minH={'68px'}
             top={0}
             w='100%'
             position={'fixed'}
@@ -43,16 +33,17 @@ const Header = () => {
             justify='space-between'
             padding='1rem'
             borderBottom='4px solid'
-            borderColor={borderColor}
-            backgroundColor={bgColor}>
+            borderColor={borderHeaderColor}
+            backgroundColor={bgHeaderColor}>
             <Box display='flex' alignItems='center'>
                 {currentSection && currentSection !== 'home' && (
-                    <IconButton
-                        size={'sm'}
+                    <CircularButton
+                        buttonProps={{
+                            w: '20px',
+                        }}
+                        boxProps={{ mr: '8px' }}
                         icon={<ArrowBackIcon />}
-                        onClick={() => navigate("/")}
-                        marginRight='1rem'
-                        aria-label={''}
+                        onClick={() => navigate('/')}
                     />
                 )}
                 <Heading fontSize='lg'>{sectionTitle}</Heading>
