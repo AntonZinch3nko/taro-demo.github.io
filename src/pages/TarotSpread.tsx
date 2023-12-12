@@ -47,7 +47,7 @@ export const TarotSpread: FC<TarotSpreadProps> = ({}) => {
                     Кельтский Крест
                 </Heading>
                 {(isMobile ? gridMobile : grid).map((row, rowIndex) => (
-                    <Flex key={rowIndex}>
+                    <Flex key={rowIndex} justifyContent={"center"}>
                         {row.map((cell, cellIndex) => {
                             let content = null;
                             if (cell !== 0) {
