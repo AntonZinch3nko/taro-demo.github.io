@@ -17,8 +17,6 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
         setImageIsLoading(true);
     };
 
-    console.log("imageProps", imageProps)
-
     return imageIsLoading ? (
         <img {...imageProps} />
     ) : (

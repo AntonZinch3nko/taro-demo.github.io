@@ -16,21 +16,26 @@ export function getDescriptionForCard(
     positionNumber: number,
     spreads: SpreadsType
 ): CardDescription {
+    console.log("card", card?.number)
+    console.log("positionNumber", positionNumber)
+    const prevCardNumber = card.number - 1;
+
     const position = spreads.positions.find((p) => p.number === positionNumber);
     if (!position) {
         throw new Error(
-            `Position for positionNumber number ${card.number} not found`
+            `Position for positionNumber number ${positionNumber} not found`
         );
     }
 
-    const targetCard = position.card.find((p) => p.number === card.number);
+    const targetCard = position.card.find((c) => c.number === prevCardNumber);
 
     if (!targetCard) {
         throw new Error(`Card for card number ${card.number} not found`);
     }
 
     // Находим описание карты
-    const cardInfo = position.card.find((c) => c.number === card.number);
+    const cardInfo = position.card.find((c) => c.number === prevCardNumber);
+    console.log("cardInfo", cardInfo)
     if (!cardInfo) {
         throw new Error(
             `Card number ${card.number} not found in position ${position.number}`

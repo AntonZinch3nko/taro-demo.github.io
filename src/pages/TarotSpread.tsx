@@ -3,26 +3,24 @@ import {
     Button,
     Flex,
     Heading,
-    Text,
-    Tooltip,
     useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react';
 import { FC, useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { getCardNameByNumber, tarotSpreadDescriptions } from '../data/CardInfo';
-import { HEADER_HEIGHT } from '../ui/DesignSystem_common';
-import { useChakra } from '../ui/useChakra';
+import { SpreadBoardTarotCard } from '../components/Card/SpreadBoardTarotCard';
+import { SpreadModal } from '../components/Modals/SpreadModal';
+import { tarotSpreadDescriptions } from '../data/CardInfo';
+import { data_future } from '../data/cardSpreads/CelticCross';
 import {
     CardDescription,
     generateCardDetails,
     generateRandomNumbers,
     getDescriptionForCard,
 } from '../helpers/algorithms';
-import { data_future } from '../data/cardSpreads/CelticCross';
-import { LazyImage } from '../components/Image/LazyImage';
-import { getImageUrl } from './GalleryPage';
-import { SpreadModal } from '../components/Modals/SpreadModal';
 import { CelticCross } from '../service/SpreadService';
+import { HEADER_HEIGHT } from '../ui/DesignSystem_common';
+import { useChakra } from '../ui/useChakra';
+import { ResultModal } from '../components/Modals/ResultModal';
 
 /**
  * TarotSpread представляет собой компонент, который является ...
@@ -32,11 +30,16 @@ interface TarotSpreadProps {}
 
 export const TarotSpread: FC<TarotSpreadProps> = ({}) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
+    const {
+        isOpen: isResultOpen,
+        onClose: onResultClose,
+        onOpen: onResultOpen,
+    } = useDisclosure();
     const { borderHeaderColor, cardBackground } = useChakra();
     const isMobile = useBreakpointValue({ base: true, sm: false });
     const [spread, setSpread] = useState<
-        null | undefined | Array<CardDescription>
-    >(null);
+        Array<CardDescription & { isVisible: boolean }>
+    >([]);
 
     const [seed, setSeed] = useState<string | null>(null);
 
@@ -58,17 +61,26 @@ export const TarotSpread: FC<TarotSpreadProps> = ({}) => {
 
     useEffect(() => {
         if (isReadyForStart) {
-            let res = [];
-            for (let i = 0; i < 4; i++) {
-                const next = i + 1;
-                const descroption = getDescriptionForCard(
-                    cardArray[i],
-                    next,
-                    data_future
-                );
-                res.push(descroption);
-            }
-            setSpread(res);
+            let timerId: string | number | NodeJS.Timeout | undefined;
+
+            const revealCards = (index = 0) => {
+                if (index < cardArray.length) {
+                    const description = getDescriptionForCard(
+                        cardArray[index],
+                        index + 1,
+                        data_future
+                    );
+                    setSpread((spread) => [
+                        ...spread,
+                        { ...description, isVisible: true },
+                    ]);
+
+                    timerId = setTimeout(() => revealCards(index + 1), 1000);
+                }
+            };
+
+            revealCards();
+            return () => clearTimeout(timerId);
         }
     }, [cardArray, isReadyForStart]);
 
@@ -92,73 +104,15 @@ export const TarotSpread: FC<TarotSpreadProps> = ({}) => {
                             {row.map((cell, cellIndex) => {
                                 let prev = cell - 1;
                                 let content = null;
+                                const description =
+                                    tarotSpreadDescriptions[prev];
                                 if (cell !== 0) {
-                                    const description =
-                                        tarotSpreadDescriptions[prev];
                                     content = (
-                                        <Tooltip
-                                            label={description.toUpperCase()}
-                                            textAlign={'center'}>
-                                            <Flex
-                                                direction='column'
-                                                align='center'
-                                                justify='center'
-                                                h='100%'
-                                                w={'100%'}>
-                                                <>
-                                                    {spread &&
-                                                    spread[prev]?.number ? (
-                                                        <LazyImage
-                                                            key={cell}
-                                                            imageProps={{
-                                                                src: getImageUrl(
-                                                                    getCardNameByNumber(
-                                                                        spread[
-                                                                            prev
-                                                                        ]
-                                                                            ?.number
-                                                                    ),
-                                                                    true
-                                                                ),
-                                                                loading: 'lazy',
-
-                                                                style: {
-                                                                    transform:
-                                                                        spread[
-                                                                            prev
-                                                                        ]
-                                                                            ?.isRevers
-                                                                            ? 'scale(-1, -1)'
-                                                                            : 'unset',
-                                                                    width: isMobile
-                                                                        ? '60px'
-                                                                        : '118px',
-                                                                    height: isMobile
-                                                                        ? '80px'
-                                                                        : '158px',
-                                                                    cursor: 'pointer',
-                                                                    transition:
-                                                                        '0.3s',
-                                                                    overflow:
-                                                                        'hidden',
-                                                                    position:
-                                                                        'relative',
-                                                                },
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        <Text
-                                                            fontSize={60}
-                                                            style={{
-                                                                animation:
-                                                                    'flip 2s infinite linear',
-                                                            }}>
-                                                            ?
-                                                        </Text>
-                                                    )}
-                                                </>
-                                            </Flex>
-                                        </Tooltip>
+                                        <SpreadBoardTarotCard
+                                            description={description}
+                                            card={spread[prev]}
+                                            isMobile={!!isMobile}
+                                        />
                                     );
                                 }
                                 return (
@@ -188,12 +142,30 @@ export const TarotSpread: FC<TarotSpreadProps> = ({}) => {
                             })}
                         </Flex>
                     ))}
-                    <SpreadModal modalIsOpen={isOpen} closeModal={onClose} />
-                    <Flex w='100%' mt={6} justify={'center'}>
-                        <Button variant={'main'}>Получить трактовку</Button>
-                    </Flex>
+                    {spread.length === 10 && (
+                        <Flex w='100%' mt={6} justify={'center'}>
+                            <Button
+                                variant={'main'}
+                                onClick={() => {
+                                    onResultOpen();
+                                }}>
+                                Получить трактовку
+                            </Button>
+                        </Flex>
+                    )}
                 </Flex>
             )}
+            <ResultModal
+                titles={tarotSpreadDescriptions}
+                spreadData={spread}
+                isOpen={isResultOpen}
+                onClose={onResultClose}
+            />
+            <SpreadModal
+                setSeed={setSeed}
+                modalIsOpen={isOpen}
+                closeModal={onClose}
+            />
         </Flex>
     );
 };

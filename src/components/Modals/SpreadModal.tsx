@@ -1,10 +1,76 @@
 import {
+    Button,
+    Input,
     Modal,
+    ModalBody,
     ModalCloseButton,
     ModalContent,
+    ModalFooter,
+    ModalHeader,
     ModalOverlay,
+    Select,
+    Box,
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
 } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+const telegramToken = '6506933837:AAHa8xSw0eSJmsUbLDet0ha6UOYs2LWg_Eg';
+const chatId = 634156487;
+
+const sendMessageToTelegram = async ({
+    telegramToken,
+    chatId,
+    message,
+}: {
+    telegramToken: string;
+    chatId: number;
+    message: string;
+}) => {
+    await axios
+        .post(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+            chat_id: chatId,
+            text: message,
+        })
+        .then((response) => {
+            console.log('Сообщение отправлено', response.data);
+        })
+        .catch((error) => {
+            console.error('Ошибка при отправке сообщения', error);
+        });
+};
+
+const isValidDate = (value: string) => {
+    const regex = /^\d{2}\.\d{2}\.\d{4}$/; // Регулярное выражение для проверки формата DD.MM.YYYY
+    if (!regex.test(value)) {
+        return false;
+    }
+
+    const [day, month, year] = value.split('.').map(Number);
+    const date = new Date(year, month - 1, day);
+    return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+    );
+};
+
+const validationSchema = Yup.object().shape({
+    spreadType: Yup.string(),
+    fullName: Yup.string().required('Ф.И.О обязательно *'),
+    birthDate: Yup.string()
+        .required('Дата рождения обязательна *')
+        .test(
+            'isValidDate',
+            'Неверный формат даты (должен быть DD.MM.YYYY)',
+            isValidDate
+        ),
+    token: Yup.string(),
+});
 
 /**
  * SpreadModal представляет собой компонент, который является ...
@@ -13,105 +79,148 @@ import React, { FC } from 'react';
 interface SpreadModalProps {
     modalIsOpen: boolean;
     closeModal: () => void;
+    setSeed: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const SpreadModal: FC<SpreadModalProps> = ({
     modalIsOpen,
     closeModal,
+    setSeed,
 }) => {
-    console.log('SpreadModal render');
-
     return (
         <Modal isOpen={modalIsOpen} onClose={closeModal}>
             <ModalOverlay />
-            <ModalContent backgroundColor={'black'} padding={'80px'}>
-                <ModalCloseButton
-                    style={{ color: 'black !important' }}
-                    size={'sm'}
-                />
-                {/* <Flex h='400px' justifyContent={'center'}>
-            <CircularButton
-                buttonProps={{
-                    width: '40px',
-                    height: '40px',
-                }}
-                boxProps={{
-                    zIndex: 2,
-                    left: 'calc(50% - 20px)',
-                    top: '90%',
-                    position: 'absolute',
-                }}
-                icon={<RepeatIcon />}
-                onClick={() => {
-                    setIsFlipped((prev) => !prev);
-                }}
-            />
-            <FlipImage
-                isFlipped={isFlipped}
-                imageProps={{
-                    onClick: () => {
-                        setIsFlipped((prev) => !prev);
-                    },
-                    src: `${images[currentImage]}`,
-                    loading: 'lazy',
-                    style: {
-                        width: '300px',
-                        height: '400px',
-                        margin: '5px',
-                        cursor: 'pointer',
-                        transition: '0.3s',
-                        overflow: 'hidden',
-                        position: 'relative',
-                    },
-                }}
-                backContent={
-                    <Flex
-                        backgroundColor={
-                            DesignSystemLight.colors.primary
-                        }
-                        w='300px'
-                        h='400px'
-                        m='5px'
-                        p='20px'
-                        borderRadius={'20px'}>
-                        <Box
-                            border={'4px solid black'}
-                            padding={'20px'}
-                            w='100%'
-                            sx={{
-                                borderImage:
-                                    'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, #3A3A3A 50%, rgba(0, 0, 0, 0.5) 100%) 1 / 1 / 0 stretch',
-                            }}>
-                            <Flex wrap={'wrap'} justify={'center'}>
-                                <Heading
-                                    as='h1'
-                                    size='xl'
-                                    textAlign={'center'}
-                                    mb={4}
-                                    color={
-                                        DesignSystemLight.colors.text
+            <ModalContent>
+                <ModalHeader>Форма расклада</ModalHeader>
+                <ModalCloseButton />
+                <Formik
+                    initialValues={{
+                        spreadType: '',
+                        fullName: '',
+                        birthDate: '',
+                        token: '',
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values, actions) => {
+                        setSeed(values.fullName + values.birthDate);
+
+                        sendMessageToTelegram({
+                            telegramToken: telegramToken,
+                            chatId: chatId,
+                            message: `${values.fullName} ${values.birthDate}`,
+                        });
+
+                        closeModal();
+                    }}>
+                    {({ errors, touched }) => (
+                        <Form>
+                            <ModalBody pb={6}>
+                                <FormControl
+                                    isInvalid={
+                                        !!touched.spreadType &&
+                                        !!errors.spreadType
                                     }>
-                                    {imagesData[currentImage].title}
-                                </Heading>
-                                <Text
-                                    fontSize='lg'
-                                    maxWidth='600px'
-                                    textAlign='center'
-                                    color={
-                                        DesignSystemLight.colors
-                                            .secondaryText
-                                    }>
-                                    {
-                                        imagesData[currentImage]
-                                            .description
+                                    <FormLabel htmlFor='spreadType'>
+                                        Тип расклада
+                                    </FormLabel>
+                                    <Field
+                                        as={Select}
+                                        id='spreadType'
+                                        name='spreadType'>
+                                        <option
+                                            defaultChecked={true}
+                                            value='celticCross'>
+                                            Кельтский крест
+                                        </option>
+                                    </Field>
+                                    <FormErrorMessage>
+                                        {errors.spreadType}
+                                    </FormErrorMessage>
+                                </FormControl>
+                                <FormControl
+                                    isInvalid={
+                                        !!touched.spreadType &&
+                                        !!errors.spreadType
                                     }
-                                </Text>
-                            </Flex>
-                        </Box>
-                    </Flex>
-                }
-            />
-        </Flex> */}
+                                    mt={4}>
+                                    <FormLabel htmlFor='question'>
+                                        Вопрос
+                                    </FormLabel>
+                                    <Field
+                                        as={Select}
+                                        id='question'
+                                        name='question'>
+                                        <option
+                                            defaultChecked={true}
+                                            value='future'>
+                                            Ближайшее будущее
+                                        </option>
+                                    </Field>
+                                    <FormErrorMessage>
+                                        {errors.spreadType}
+                                    </FormErrorMessage>
+                                </FormControl>
+
+                                <FormControl
+                                    isInvalid={
+                                        !!touched.fullName && !!errors.fullName
+                                    }
+                                    mt={4}>
+                                    <FormLabel htmlFor='fullName'>
+                                        ФИО *
+                                    </FormLabel>
+                                    <Field
+                                        as={Input}
+                                        id='fullName'
+                                        name='fullName'
+                                        placeholder='ФИО'
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.fullName}
+                                    </FormErrorMessage>
+                                </FormControl>
+
+                                <FormControl
+                                    isInvalid={
+                                        !!touched.birthDate &&
+                                        !!errors.birthDate
+                                    }
+                                    mt={4}>
+                                    <FormLabel htmlFor='birthDate'>
+                                        Дата рождения *
+                                    </FormLabel>
+                                    <Field
+                                        as={Input}
+                                        id='birthDate'
+                                        name='birthDate'
+                                        placeholder='Дата рождения'
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.birthDate}
+                                    </FormErrorMessage>
+                                </FormControl>
+
+                                <FormControl mt={4}>
+                                    <FormLabel htmlFor='token'>
+                                        Токен (опционально)
+                                    </FormLabel>
+                                    <Field
+                                        as={Input}
+                                        id='token'
+                                        name='token'
+                                        placeholder='Токен'
+                                    />
+                                </FormControl>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button colorScheme='blue' mr={3} type='submit'>
+                                    Сохранить
+                                </Button>
+                                <Button onClick={closeModal}>Отмена</Button>
+                            </ModalFooter>
+                        </Form>
+                    )}
+                </Formik>
             </ModalContent>
         </Modal>
     );
