@@ -1,3 +1,52 @@
+import { SpreadsType } from '../data/cardSpreads/type';
+
+interface Card {
+    number: number;
+    isRevers: boolean;
+}
+
+export interface CardDescription {
+    number: number;
+    description: string;
+    isRevers: boolean;
+}
+
+export function getDescriptionForCard(
+    card: Card,
+    positionNumber: number,
+    spreads: SpreadsType
+): CardDescription {
+    const position = spreads.positions.find((p) => p.number === positionNumber);
+    if (!position) {
+        throw new Error(
+            `Position for positionNumber number ${card.number} not found`
+        );
+    }
+
+    const targetCard = position.card.find((p) => p.number === card.number);
+
+    if (!targetCard) {
+        throw new Error(`Card for card number ${card.number} not found`);
+    }
+
+    // Находим описание карты
+    const cardInfo = position.card.find((c) => c.number === card.number);
+    if (!cardInfo) {
+        throw new Error(
+            `Card number ${card.number} not found in position ${position.number}`
+        );
+    }
+
+    // Возвращаем номер карты и соответствующее описание
+    return {
+        number: card.number,
+        isRevers: card.isRevers,
+        description: card.isRevers
+            ? cardInfo.reversDescriptions
+            : cardInfo.descriptions,
+    };
+}
+
 export class SeededRandom {
     private seed: number;
 
@@ -15,40 +64,51 @@ export class SeededRandom {
         return this.seed / m;
     }
 
+    public nextBoolean(): boolean {
+        return this.next() < 0.5;
+    }
+
     // Функция для получения случайного числа в заданном диапазоне
     public nextInRange(min: number, max: number): number {
         return Math.floor(this.next() * (max - min + 1)) + min;
     }
 }
 
-// function generateRandomNumbers(fullName: string): number[] {
-//     // Преобразуем строку в числовой seed
-//     let seed = 0;
-//     for (let i = 0; i < fullName.length; i++) {
-//         seed += fullName.charCodeAt(i);
-//     }
+export function generateCardDetails(numbers: number[], seed: number): Card[] {
+    const rng = new SeededRandom(seed);
+    return numbers.map((num) => ({
+        number: num,
+        isRevers: rng.nextBoolean(), // Используем новый публичный метод
+    }));
+}
 
-//     // Добавляем текущую дату к seed
-//     const currentDate = new Date().toISOString().slice(0, 10); // только дата без времени
-//     for (let i = 0; i < currentDate.length; i++) {
-//         seed += currentDate.charCodeAt(i);
-//     }
+export function generateRandomNumbers(fullName: string): number[] {
+    // Преобразуем строку в числовой seed
+    let seed = 0;
+    for (let i = 0; i < fullName.length; i++) {
+        seed += fullName.charCodeAt(i);
+    }
 
-//     const rng = new SeededRandom(seed);
+    // Добавляем текущую дату к seed
+    const currentDate = new Date().toISOString().slice(0, 10); // только дата без времени
+    for (let i = 0; i < currentDate.length; i++) {
+        seed += currentDate.charCodeAt(i);
+    }
 
-//     // Генерируем пять случайных чисел от 1 до 78
-//     const randomNumbers: number[] = [];
-//     for (let i = 0; i < 5; i++) {
-//         randomNumbers.push(rng.nextInRange(1, 78));
-//     }
+    const rng = new SeededRandom(seed);
 
-//     return randomNumbers;
-// }
+    // Генерируем пять случайных чисел от 1 до 78
+    const randomNumbers: number[] = [];
+    for (let i = 0; i < 10; i++) {
+        randomNumbers.push(rng.nextInRange(1, 78));
+    }
 
-// // Пример использования
+    return randomNumbers;
+}
+
+// Пример использования
 // const result = generateRandomNumbers("Иванов Иван Иванович");
 // console.log(result);
-
 
 // оздание Telegram бота:
 

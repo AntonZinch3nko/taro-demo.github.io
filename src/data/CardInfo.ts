@@ -333,6 +333,7 @@ export const imagesData: ImagesData = [
         title: 'Король Пентаклей',
         description: 'Успех, богатство, деловое чутье, лидерство в бизнесе.',
     },
+    
 ];
 
 export enum TarotSpreadEnum {
@@ -360,3 +361,23 @@ export const tarotSpreadDescriptions = [
     "неожиданные влияния, возможные проблемы", // UnexpectedInfluences
     "итог, будущее, отдалённая перспектива" // Outcome
 ];
+
+const cardNames = [
+    'Fool', 'Magician', 'Pristess', 'Empress', 'Emperor', 'Hierophant', 'Lovers', 
+    'Chariot', 'Strength', 'Hermit', 'Wheel', 'Justice', 'Hunged_man', 'Death', 
+    'Temperance', 'Devil', 'Tower', 'Star', 'Moon', 'Sun', 'Judgement', 'World', 
+    'Wands_1', 'Wands_2', 'Wands_3', 'Wands_4', 'Wands_5', 'Wands_6', 'Wands_7', 
+    'Wands_8', 'Wands_9', 'Wands_10', 'Wands_page', 'Wands_knight', 'Wands_queen', 
+    'Wands_king', 'Cups_1', 'Cups_2', 'Cups_3', 'Cups_4', 'Cups_5', 'Cups_6', 
+    'Cups_7', 'Cups_8', 'Cups_9', 'Cups_10', 'Cups_page', 'Cups_knight', 'Cups_queen', 
+    'Cups_king', 'Sword_1', 'Sword_2', 'Sword_3', 'Sword_4', 'Sword_5', 'Sword_6', 
+    'Sword_7', 'Sword_8', 'Sword_9', 'Sword_10', 'Sword_page', 'Sword_knight', 
+    'Sword_queen', 'Sword_king', 'Penta_1', 'Penta_2', 'Penta_3', 'Penta_4', 'Penta_5', 
+    'Penta_6', 'Penta_7', 'Penta_8', 'Penta_9', 'Penta_10', 'Penta_page', 
+    'Penta_knight', 'Penta_queen', 'Penta_king'
+];
+
+// Функция для получения имени карты по номеру
+export function getCardNameByNumber(number:number) {
+    return cardNames[number - 1]; // Вычитаем 1, так как индексация в массиве начинается с 0
+}

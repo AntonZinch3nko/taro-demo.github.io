@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react';
+import "./App.css";
 import Header from './components/Header/Header';
 import { RoutesList } from './router/AppRouter';
-import { useChakra } from './ui/useChakra';
 import { HEADER_HEIGHT } from './ui/DesignSystem_common';
-import "./App.css";
+import { useChakra } from './ui/useChakra';
 
 function App() {
     const { bgColor } = useChakra();

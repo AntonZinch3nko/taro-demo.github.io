@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import PlaceholderImage from '../Placeholder/PlaceholderImage';
+import { Box } from '@chakra-ui/react';
 
 /**
  * LazyImage представляет собой компонент, который является ...
@@ -16,10 +17,12 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
         setImageIsLoading(true);
     };
 
+    console.log("imageProps", imageProps)
+
     return imageIsLoading ? (
         <img {...imageProps} />
     ) : (
-        <div style={{ position: 'relative' }}>
+        <Box as="div" style={{ position: 'relative' }}>
             <PlaceholderImage boxProps={{ w: '150px', h: '200px' }} />
             <img
                 {...imageProps}
@@ -35,6 +38,6 @@ export const LazyImage: FC<LazyImageProps> = ({ imageProps }) => {
                 loading='lazy'
                 onLoad={handleImageLoad}
             />
-        </div>
+        </Box>
     );
 };

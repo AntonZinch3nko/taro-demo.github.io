@@ -2,7 +2,7 @@ import React from 'react';
 import ImageGrid from '../components/ImageSlider/ImageGrid';
 import { Box } from '@chakra-ui/react';
 
-function getImageUrl(imageName: string, isThumb?: boolean) {
+export function getImageUrl(imageName: string, isThumb?: boolean) {
     const baseUrl =
         process.env.NODE_ENV === 'development'
             ? process.env.PUBLIC_URL + '/img/deck/'
